@@ -1,0 +1,17 @@
+.user-border{
+    
+    border: 1px solid #e8e8e8;
+  }
+  
+  .user-content {
+    padding: 10px;
+  }
+
+  .user-img {
+    display: inline-block;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+  
+    object-fit: cover;
+  }

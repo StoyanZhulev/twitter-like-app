@@ -1,0 +1,85 @@
+<mat-sidenav-container class="example-container">
+  <mat-sidenav #sidenav class="example-sidenav">
+    My sidenav
+    <div>
+      <h3>{{firstname}} {{lastname}}</h3>
+    </div>
+    <div>
+      <button type="button" md-button (click)="sidenav.close()">
+        Close Sidenav
+      </button>
+    </div>
+
+    <div>
+      <button type="button" md-button (click)="createModal.open(); sidenav.close()">
+        Create Post
+      </button>
+    </div>
+
+
+  </mat-sidenav>
+
+  <div class="example-sidenav-content">
+    <div style="float:left">
+        <button type="button" md-button (click)="sidenav.open()">
+            Open Sidenav
+          </button>
+    </div>
+   
+    
+    <div class="user-list" style="float:right">
+    <mat-card class="container">
+      <mat-card-content>
+        <h2 class="example-h2" style="text-align: center">Users</h2>
+        <mat-tab-group class="tab-group">
+          <mat-tab label="All user">
+            <app-user-card *ngFor="let user of users" [user]="user"></app-user-card>
+          </mat-tab>
+          <mat-tab label="Users Following">
+            <div class="tab-content">
+              <app-user-card *ngFor="let user of followedUsers" [user]="user"></app-user-card>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </mat-card-content>
+    </mat-card>
+    </div>
+    <div class="post-list" style="display: inline-block;">
+        <mat-card class="container">
+          <mat-card-content>
+            <h2 class="example-h2" style="text-align: center">Posts</h2>
+            <mat-accordion>
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Create Post
+                    </mat-panel-title>
+                    <mat-panel-description>
+                      Tell the world what you are doing
+                    </mat-panel-description>
+                  </mat-expansion-panel-header>
+                    <app-create-post></app-create-post>
+                </mat-expansion-panel>
+                <mat-expansion-panel (opened)="panelOpenState = true"
+                                     (closed)="panelOpenState = false">
+           
+                </mat-expansion-panel>
+              </mat-accordion>
+            <mat-tab-group class="tab-group">
+              <mat-tab label="All posts">
+                <app-post-card *ngFor="let post of posts" [post]="post"></app-post-card>
+              </mat-tab>
+              <mat-tab label="Posts from followed users">
+                <div class="tab-content">
+                  <app-post-card *ngFor="let post of posts" [post]="post"></app-post-card>
+                </div>
+              </mat-tab>
+            </mat-tab-group>
+          </mat-card-content>
+        </mat-card>
+      </div>
+  </div>
+
+</mat-sidenav-container>
+
+<app-create #createModal></app-create>

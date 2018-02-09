@@ -1,0 +1,39 @@
+<div>
+  <h3>Register</h3>
+  <form (submit)="register()" class="example-form">
+
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Enter your first name" [formControl]="firstname" required>
+      <mat-error *ngIf="firstname.invalid">{{getFirstnameError()}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Enter your lastname" [formControl]="lastname" required>
+      <mat-error *ngIf="email.invalid">{{getLastnameError()}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Enter your email" [formControl]="email" required>
+      <mat-error *ngIf="email.invalid">{{getEmailError()}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input type="password" matInput placeholder="Enter your password" [formControl]="password" required>
+      <mat-error *ngIf="password.invalid">{{getPasswordError()}}</mat-error>
+    </mat-form-field>
+
+    <div *ngFor="let error of errors">
+      <mat-error>{{error}}</mat-error>
+    </div>
+
+    <div class="button-row">
+      <button type="submit" mat-raised-button [disabled]="password.invalid || email.invalid">Submit</button>
+    </div>
+  </form>
+
+  <ul>
+    <li *ngFor="let user of users">
+      {{user.email}}
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,25 @@
+.demo-tab-group {
+    border: 1px solid #e8e8e8;
+  }
+  
+  .demo-tab-content {
+    padding: 10px;
+  }
+
+  .users-list {
+    float: right;
+    max-height: 100%;
+    left: 35%; 
+    top: 10%; 
+    z-index: 10;
+    width: 25%;
+  }
+
+  .post-list {
+    float: right;
+    max-height: 100%;
+    left: 25%; 
+    top: 10%; 
+    z-index: 10;
+    width: 50%;
+  }

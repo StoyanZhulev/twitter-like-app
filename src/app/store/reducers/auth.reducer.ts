@@ -1,0 +1,30 @@
+import { AuthState, InitialAuthState } from '../state/auth.state';
+import * as authActions from '../actions/authentication.actions'
+import { CookieService } from 'ngx-cookie';
+
+export function authReducer(state: AuthState = InitialAuthState, action: authActions.Actions): AuthState {
+    switch (action.type) {
+        case authActions.AuthActions.REGISTER_SUCCESS:
+            return { ...state, firstname:action.payload.firstname, lastname: action.payload.lastname, email: action.payload.email, refreshToken: action.payload.refreshToken, uid: action.payload.uid,errors: [] }
+        case authActions.AuthActions.REGISTER_FAILED:
+            let errMsg = action.payload.message;
+            let newErrors = state.errors;
+            newErrors.push(errMsg);
+            return { ...state, errors: newErrors }
+        case authActions.AuthActions.LOGIN_SUCCESS:
+            return { ...state,firstname:action.payload.firstName, lastname: action.payload.lastName, email: action.payload.email, refreshToken: action.payload.refreshToken, uid: action.payload.uid, errors:[] }
+        case authActions.AuthActions.LOGIN_FAILED:
+            let errMsgg = action.payload.message;
+            let newErrorsArr = state.errors;
+            newErrorsArr.push(errMsgg);
+            return { ...state, errors: newErrorsArr }
+        case authActions.AuthActions.CLEAR_AUTH_ERRORS:
+            let errors = state.errors;
+            errors = [];
+            return { ...state, errors: errors }   
+        case authActions.AuthActions.LOGOUT:
+            return InitialAuthState        
+        default:
+            return state;
+    }
+}

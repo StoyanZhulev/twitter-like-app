@@ -1,0 +1,15 @@
+
+      <mat-sidenav-container class="example-container">
+        <mat-sidenav #sidenav class="example-sidenav">
+          Sidenav content goes here!
+        </mat-sidenav>
+      
+        <div class="example-sidenav-content">
+          <button type="button" md-button (click)="sidenav.open()">
+            Open Sidenav
+          </button>
+          <router-outlet></router-outlet>    
+
+        </div>
+      
+      </mat-sidenav-container>

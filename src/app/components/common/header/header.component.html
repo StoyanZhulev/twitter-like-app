@@ -1,0 +1,6 @@
+<nav mat-tab-nav-bar>
+  <a *ngIf="!loggedIn" mat-tab-link routerLinkActive="routerLinkActive" routerLink="register">Register</a>
+  <a *ngIf="!loggedIn" mat-tab-link routerLinkActive="routerLinkActive" routerLink="login">Login</a>
+  <a *ngIf="loggedIn" mat-tab-link routerLinkActive="routerLinkActive" routerLink="home">Home</a>
+  <a *ngIf="loggedIn" mat-tab-link (click)="logout()">Logout</a>
+</nav>

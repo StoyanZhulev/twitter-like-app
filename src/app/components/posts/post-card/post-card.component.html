@@ -1,0 +1,15 @@
+<div class="user-border">
+    <div class="user-content" style="display: inline-block">
+    <img src="http://www.colegiodepadua.com.br/img/user.png" class="user-img"> 
+        <h5 class="text">{{post.authorName}}</h5>
+    </div>
+    <div class="user-content">
+      <h5>{{post.title}}</h5>
+      <img src="{{post.imageUrl}}" class="post-image">
+      <textarea class="textarea" disabled>{{post.content}}</textarea>
+    </div>
+    <div>
+        <i class="material-icons" (click)="like(post)">thumb_up</i><span>({{post.likes}})</span>
+        <i class="material-icons" (click)="dislike(post)">thumb_down</i><span>({{post.dislikes}})</span>
+    </div>
+</div>

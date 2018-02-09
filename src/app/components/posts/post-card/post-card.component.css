@@ -1,0 +1,40 @@
+.user-border{
+   
+    border: 1px solid #e8e8e8;
+  }
+  
+  .user-content {
+    text-align: center;
+    padding: 0;
+    margin-top: 0;
+  }
+
+  .textarea {
+      text-align: center;
+      margin-top: 10px;
+    width: 70%;
+    height: 100%;
+  }
+
+  .user-img {
+    text-align: center;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+  
+    object-fit: cover;
+  }
+
+  .post-image {
+    text-align: center;
+    width: 60%;
+    height: 60%;
+  
+    object-fit: cover;
+  }
+
+  .text {
+    text-align: center;
+      display: inline-block;
+  }
