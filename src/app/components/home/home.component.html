@@ -1,8 +1,8 @@
-<mat-sidenav-container class="example-container">
+<mat-sidenav-container *ngIf="user?.uid" class="example-container">
   <mat-sidenav #sidenav class="example-sidenav">
     My sidenav
     <div>
-      <h3>{{firstname}} {{lastname}}</h3>
+      <h3>{{user.firstname}} {{user.lastname}}</h3>
     </div>
     <div>
       <button type="button" md-button (click)="sidenav.close()">
@@ -14,6 +14,11 @@
       <button type="button" md-button (click)="createModal.open(); sidenav.close()">
         Create Post
       </button>
+    </div>
+    <div>
+      <a routerLink='/users/{{user.uid}}'><button type="button" md-button (click)="sidenav.close()">
+        My Profile
+      </button></a>
     </div>
 
 
@@ -33,11 +38,11 @@
         <h2 class="example-h2" style="text-align: center">Users</h2>
         <mat-tab-group class="tab-group">
           <mat-tab label="All user">
-            <app-user-card *ngFor="let user of users" [user]="user"></app-user-card>
+            <app-user-card *ngFor="let user of getUsers()" [user]="user"></app-user-card>
           </mat-tab>
           <mat-tab label="Users Following">
             <div class="tab-content">
-              <app-user-card *ngFor="let user of followedUsers" [user]="user"></app-user-card>
+              <app-user-card *ngFor="let user of getFollowedUsers()" [user]="user"></app-user-card>
             </div>
           </mat-tab>
         </mat-tab-group>
@@ -67,11 +72,11 @@
               </mat-accordion>
             <mat-tab-group class="tab-group">
               <mat-tab label="All posts">
-                <app-post-card *ngFor="let post of posts" [post]="post"></app-post-card>
+                <app-post-card *ngFor="let post of getPosts()" [post]="post"></app-post-card>
               </mat-tab>
               <mat-tab label="Posts from followed users">
                 <div class="tab-content">
-                  <app-post-card *ngFor="let post of posts" [post]="post"></app-post-card>
+                  <app-post-card *ngFor="let post of getFollowedUsersPosts()" [post]="post"></app-post-card>
                 </div>
               </mat-tab>
             </mat-tab-group>

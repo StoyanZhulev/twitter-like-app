@@ -6,5 +6,7 @@ export class PostModel {
     likes: number
     imageUrl: string
     title: string
+    usersLiked: any
+    usersDisliked: any
   }
   

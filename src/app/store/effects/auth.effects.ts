@@ -12,6 +12,7 @@ import { AppState } from '../state/app-state';
 import * as authActions from '../actions/authentication.actions';
 import { AuthService } from '../../services/auth.service';
 import { CookieService } from 'ngx-cookie';
+import { ToastrService } from '../../services/toastr.service';
 
 @Injectable()
 
@@ -21,7 +22,8 @@ export class AuthenticationEffects {
     private store$: Store<AppState>,
     private authService: AuthService,
     private cookieService: CookieService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {
 
   }
@@ -52,7 +54,8 @@ export class AuthenticationEffects {
     .switchMap((action: authActions.RegisterAuthAction) =>
       this.authService.registerAuth(action.payload)
         .map(data => {
-          this.router.navigateByUrl('home')
+          this.toastr.showSuccess('Registered', 'You have successfully registered!')          
+          this.router.navigateByUrl('home');
           return new authActions.RegisterSuccessAction(action.payload);
         })
         .catch(err => {
@@ -85,7 +88,9 @@ export class AuthenticationEffects {
       this.authService.loginAuth(action.payload)
         .map(data => {
           let userData = {...action.payload, ...data}
+          this.toastr.showSuccess('Logged in!', 'You have successfully logged in!')          
           this.router.navigateByUrl('home')
+          
           return new authActions.LoginActionSuccess(userData);
         })
         .catch(err => {

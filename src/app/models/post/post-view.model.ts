@@ -7,5 +7,7 @@ export class PostViewModel {
     likes: number
     imageUrl: string
     title: string
+    usersLiked: any
+    usersDisliked: any
   }
   

@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {NgbModule } from '@ng-bootstrap/ng-bootstrap'
+import { ToastModule } from "ng2-toastr/ng2-toastr"
 
 import { AppComponent } from './app.component';
 
@@ -40,6 +41,9 @@ import { PostService } from './services/post.service';
 import { PostCardComponent } from './components/posts/post-card/post-card.component';
 import { ProfilePageComponent } from './components/users/profile-page/profile-page.component';
 import { CreatePostComponent } from './components/posts/create-post/create-post.component';
+import { ToastrService } from './services/toastr.service';
+import { UserEditComponent } from './components/user/user-edit/user-edit.component';
+import { UserService } from './services/user.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,13 +56,15 @@ import { CreatePostComponent } from './components/posts/create-post/create-post.
     CreateComponent,
     PostCardComponent,
     ProfilePageComponent,
-    CreatePostComponent
+    CreatePostComponent,
+    UserEditComponent
   ],
   imports: [
     BrowserModule,
     NgbModule,
     BrowserAnimationsModule,
     FormsModule,
+    ToastModule.forRoot(),
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
@@ -86,7 +92,9 @@ import { CreatePostComponent } from './components/posts/create-post/create-post.
   providers: [
     AuthService,
     CookieService,
-    PostService
+    PostService,
+    ToastrService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

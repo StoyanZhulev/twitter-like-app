@@ -1,0 +1,38 @@
+<div mdbModal #editForm="mdb-modal" class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+   
+        <div class="modal-dialog modal-notify modal-success" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Edit profile</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="editForm.hide()">
+                        <span aria-hidden="true" class="white-text">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                  {{form.invalid}}
+                    <form (submit)="edit()" [formGroup]="form" class="example-form" >
+                        <mat-form-field class="example-full-width">
+                          <input matInput placeholder="Enter your first name" value="{{user?.firstName}}" formControlName="firstname">
+                          <mat-error *ngIf="firstname.invalid">{{getFirstnameErrors()}}</mat-error>                          
+                        </mat-form-field>
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Enter your last name" value="{{user?.lastName}}" formControlName="lastname">
+                            <mat-error *ngIf="lastname.invalid">{{getLastnameErrors()}}</mat-error>                          
+                          </mat-form-field>
+                          <mat-form-field class="example-full-width">
+                              <input matInput placeholder="Enter profile image" value="{{user?.image}}" formControlName="image">                         
+                            </mat-form-field>
+
+                          <!-- <div class="button-row">
+                              <button type="submit" mat-raised-button [disabled]="content.invalid">Submit</button>
+                            </div> -->
+                      </form>
+                <div class="modal-footer justify-content-center">
+                    <a type="button" class="btn btn-outline-secondary-modal" data-dismiss="modal" [class.disabled]="form.invalid" (click)="edit(); editForm.hide()" mdbRippleRadius>Submit</a>                    
+                    <a type="button" class="btn btn-outline-secondary-modal" data-dismiss="modal" (click)="editForm.hide();" mdbRippleRadius>Cancel</a>
+                </div>
+            </div>
+        </div>     
+</div>
+

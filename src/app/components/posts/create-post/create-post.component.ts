@@ -6,6 +6,7 @@ import { PostService } from '../../../services/post.service';
 import { selectAuth } from '../../../store/reducers/index';
 import { PostModel } from '../../../models/post/post.model';
 import { AppState } from '../../../store/state/app-state';
+import { ToastrService } from '../../../services/toastr.service';
 
 @Component({
   selector: 'app-create-post',
@@ -20,7 +21,8 @@ export class CreatePostComponent implements OnInit {
   private user: AuthState
     constructor(
       private store: Store<AppState>,
-      private postService: PostService
+      private postService: PostService,
+      private toastr: ToastrService
     ) { 
       this.store.select(selectAuth).subscribe(user => {
         this.user = user
@@ -42,19 +44,21 @@ export class CreatePostComponent implements OnInit {
 
       let post: PostModel = {
         authorId: this.user.uid,
-        authorName: this.user.firstname + this.user.lastname,
+        authorName: this.user.firstName +' ' + this.user.lastName,
         content: this.content.value,
         dislikes: 0,
         likes: 0,
         imageUrl: this.imageUrl.value,
-        title: this.title.value
+        title: this.title.value,
+        usersLiked: {},
+        usersDisliked: {}
       }
 
       this.title.reset();
       this.content.reset();
       this.imageUrl.reset();
       this.postService.createPost(post).subscribe(data => {
-        console.log(data)
+        this.toastr.showSuccess('Success!', 'Successfully created post');
       })
     }
 

@@ -1,3 +1,48 @@
-<p>
-  profile-page works!
-</p>
+<div class="user-info" style="display: inline-block;">
+  <mat-card class="container">
+    <mat-card-content>
+      <h2 class="example-h2" style="text-align: center">User Info</h2>
+      <div class="user-border">
+        <img *ngIf="user?.image" src="{{user?.image}}" class="user-img">        
+        <img *ngIf="!user?.image" src="http://www.colegiodepadua.com.br/img/user.png" class="user-img">
+        <div class="user-content">
+            <h5>Name: {{user?.firstName}} {{user?.lastName}}</h5>
+            <h6>Email: {{user?.email}}</h6>
+        </div>
+        
+      </div>
+      <div *ngIf="myProfile">
+          <button type="button" md-button (click)="editUserModal.open()">
+              Edit profile
+          </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div class="post-list" style="display: inline-block;">
+    <mat-card class="container">
+      <mat-card-content>
+        <h2 class="example-h2" style="text-align: center">Posts</h2>
+        <mat-accordion *ngIf="myProfile">
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Create Post
+                </mat-panel-title>
+                <mat-panel-description>
+                  Tell the world what you are doing
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+                <app-create-post></app-create-post>
+            </mat-expansion-panel>
+            <mat-expansion-panel (opened)="panelOpenState = true"
+                                 (closed)="panelOpenState = false">
+       
+            </mat-expansion-panel>
+          </mat-accordion>
+            <app-post-card *ngFor="let post of getPosts()" [post]="post"></app-post-card>  
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+<app-user-edit #editUserModal [user]="user"></app-user-edit>

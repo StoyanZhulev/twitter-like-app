@@ -1,7 +1,9 @@
 <div class="user-border">
-  <img src="http://www.colegiodepadua.com.br/img/user.png" class="user-img">
+    <img *ngIf="user?.image" src="{{user?.image}}" class="user-img">
+  
+  <img *ngIf="!user?.image"  src="http://www.colegiodepadua.com.br/img/user.png" class="user-img">
   <div class="user-content" style="display: inline-block">
-      <h5 >{{user.firstName}} {{user.lastName}}</h5>
+      <a routerLink="/users/{{user.uid}}"><h5 >{{user.firstName}} {{user.lastName}}</h5></a>
       <h6>{{user.email}}</h6>
   </div>
   
