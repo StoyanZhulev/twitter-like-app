@@ -14,7 +14,7 @@ import { selectAuth } from '../store/reducers/index';
 @Injectable()
 export class UserService {
 
-    private user;
+  private user;
 
   constructor(
     private firebaseAuth: AngularFireAuth,

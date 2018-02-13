@@ -11,7 +11,8 @@ export const AuthActions = {
     LOGIN_SUCCESS: 'LOGIN_SUCCESS',
     LOGIN_FAILED: 'LOGIN_FAILED',
     LOGOUT: 'LOGOUT',
-    CLEAR_AUTH_ERRORS: 'CLEAR_AUTH_ERRORS'
+    CLEAR_AUTH_ERRORS: 'CLEAR_AUTH_ERRORS',
+    UPDATE_FOLLOWED_USERS: 'UPDATE_FOLLOWED_USERS'
 }
 
 
@@ -86,6 +87,13 @@ export class ClearAuthErrors implements Action {
     }
 }
 
+export class UpdateFollowedUsers implements Action {
+    type: string = AuthActions.UPDATE_FOLLOWED_USERS
+
+    constructor(public payload: any = ''){
+    }
+}
+
 
 export type Actions = 
     RegisterAction | 
@@ -97,4 +105,5 @@ export type Actions =
     LoginActionSuccess |
     LoginActionFailed |
     ClearAuthErrors |
-    LogoutAction
+    LogoutAction |
+    UpdateFollowedUsers

@@ -9,8 +9,8 @@
 
   .user-img {
     display: inline-block;
-    width: 70px;
-    height: 70px;
+    width: 100px;
+    height: 5%;
     border-radius: 50%;
   
     object-fit: cover;

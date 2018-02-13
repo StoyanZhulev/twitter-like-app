@@ -8,6 +8,7 @@ import { selectAuth } from '../../store/reducers/index';
 import { ViewChild } from '@angular/core';
 import { CreateComponent } from '../posts/create/create.component';
 import { PostViewModel } from '../../models/post/post-view.model';
+import { UpdateFollowedUsers } from '../../store/actions/authentication.actions';
 
 @Component({
   selector: 'app-home',
@@ -62,64 +63,80 @@ export class HomeComponent implements OnInit {
     this.store.select(selectAuth).subscribe(data => {
       if (data.uid) {
         this.userUID = data.uid;
-       
 
-        // this.firebaseDatabase.object(`/users/${this.userUID}/following`).valueChanges().subscribe(data => {
-        //  console.log()
-        //   // for(let p in data){
-        //   //   let post = {id: p, ...data[p]}
-        //   //   this.posts.add(data[p]);
-        //   // }
-        // });
+        // this.firebaseDatabase.database.ref('/posts').on('child_added', snapshot => {
+        //   let post = { id: snapshot.key, ...snapshot.val() }
+        //   if (!this.posts.hasOwnProperty(snapshot.key)) {
+        //     if (this.followedUsers.hasOwnProperty(post.authorId)) {
+        //       this.followedUsersPosts[snapshot.key] = post
+        //     }
+        //     this.posts[snapshot.key] = post
+        //   }
+        // })
+        
 
-        this.firebaseDatabase.database.ref('/posts').on('child_added', snapshot => {
-          let post = { id: snapshot.key, ...snapshot.val() }
-          if (!this.posts.hasOwnProperty(snapshot.key)) {
-            if (this.followedUsers.hasOwnProperty(post.authorId)) {
-              this.followedUsersPosts[snapshot.key] = post
-            }
-            this.posts[snapshot.key] = post
-          }
-        })
+        // this.firebaseDatabase.database.ref('/posts').on('child_changed', snapshot => {
+        //   let post = { id: snapshot.key, ...snapshot.val() }
+        //   if (this.posts.hasOwnProperty(snapshot.key)) {
+        //     if (this.followedUsers.hasOwnProperty(post.authorId)) {
+        //       this.followedUsersPosts[snapshot.key] = post
+        //     }
+        //     this.posts[snapshot.key] = post
+        //   }
+        // })
 
-        this.firebaseDatabase.database.ref('/posts').on('child_changed', snapshot => {
-          let post = { id: snapshot.key, ...snapshot.val() }
-          if (this.posts.hasOwnProperty(snapshot.key)) {
-            if (this.followedUsers.hasOwnProperty(post.authorId)) {
-              this.followedUsersPosts[snapshot.key] = post
-            }
-            this.posts[snapshot.key] = post
-          }
-        })
-
-        this.firebaseDatabase.database.ref('/posts').on('child_removed', snapshot => {
-          let post = { id: snapshot.key, ...snapshot.val() }
-          if (this.posts.hasOwnProperty(snapshot.key)) {
-            if (this.followedUsers.hasOwnProperty(post.authorId)) {
-              delete this.followedUsersPosts[snapshot.key];
-            }
-            delete this.posts[snapshot.key];
-          }
-        })
+        // this.firebaseDatabase.database.ref('/posts').on('child_removed', snapshot => {
+        //   let post = { id: snapshot.key, ...snapshot.val() }
+        //   if (this.posts.hasOwnProperty(snapshot.key)) {
+        //     if (this.followedUsers.hasOwnProperty(post.authorId)) {
+        //       delete this.followedUsersPosts[snapshot.key];
+        //     }
+        //     delete this.posts[snapshot.key];
+        //   }
+        // })
 
         this.firebaseDatabase.database.ref(`/users/${this.userUID}/following`).on('child_added', snapshot => {
           if (!this.followedUsers.hasOwnProperty(snapshot.key)) {
             if (this.allUsers.hasOwnProperty(snapshot.key))
               this.followedUsers[snapshot.key] = this.allUsers[snapshot.key];
           }
+              
+          
         })
 
-        // this.firebaseDatabase.database.ref(`/users/${this.userUID}/following`).on('child_changed', snapshot => {
-        //   if (this.followedUsers.hasOwnProperty(snapshot.key)) {
-        //     this.followedUsers[snapshot.key] = snapshot.val();
-        //   }
-        // })
+        this.firebaseDatabase.database.ref(`/users/${this.userUID}/following`).on('child_changed', snapshot => {
+          if (this.followedUsers.hasOwnProperty(snapshot.key)) {
+            this.followedUsers[snapshot.key] = this.allUsers[snapshot.key];
+          }
+        })
 
         this.firebaseDatabase.database.ref(`/users/${this.userUID}/following`).on('child_removed', snapshot => {
           if (this.followedUsers.hasOwnProperty(snapshot.key)) {
             delete this.followedUsers[snapshot.key]
+            for(let p in this.followedUsersPosts){
+              if(snapshot.key === this.followedUsersPosts[p].authorId){
+                delete this.followedUsersPosts[p]
+              }
+            }
+          }
+         
+        })
+
+        
+
+
+
+        this.firebaseDatabase.database.ref('/posts').on('value', snapshot => {
+          this.posts = snapshot.val();
+          for(let p in this.posts){
+            if(this.followedUsers.hasOwnProperty(this.posts[p].authorId)){
+              this.followedUsersPosts[p] = this.posts[p]
+            }
           }
         })
+
+        
+
         this.user = data;
       }
     })
@@ -136,22 +153,28 @@ export class HomeComponent implements OnInit {
 
   getFollowedUsers() {
     if(this.followedUsers){
+      let users = {};
+      for (let u in this.followedUsers){
+        users[u] = true;
+      }
+      this.store.dispatch(new UpdateFollowedUsers(users))
       let followedUsers = Object.keys(this.followedUsers).map(k => k = this.followedUsers[k]);
       return followedUsers;
     }
+          
   }
 
 
   getPosts() {
     if(this.posts){
-      let posts = Object.keys(this.posts).map(k => k = this.posts[k]);
+      let posts = Object.keys(this.posts).map(k => k = {id: k, ...this.posts[k]});
       return posts;
     }
   }
 
   getFollowedUsersPosts() {
     if(this.followedUsersPosts){
-      let posts = Object.keys(this.followedUsersPosts).map(k => k = this.followedUsersPosts[k]);
+      let posts = Object.keys(this.followedUsersPosts).map(k => k = {id: k, ...this.followedUsersPosts[k]});
       return posts;
     }
     

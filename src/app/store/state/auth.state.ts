@@ -5,6 +5,7 @@ export interface AuthState {
     refreshToken: string,
     uid: string,
     image: string,
+    following: Object,
     errors: Array<string>
   }
 
@@ -15,5 +16,6 @@ export const InitialAuthState: AuthState = {
     refreshToken: '',
     uid: '',
     image: '',
+    following: {},
     errors: []
 }

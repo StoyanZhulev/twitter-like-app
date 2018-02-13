@@ -90,7 +90,6 @@ export class AuthenticationEffects {
           let userData = {...action.payload, ...data}
           this.toastr.showSuccess('Logged in!', 'You have successfully logged in!')          
           this.router.navigateByUrl('home')
-          
           return new authActions.LoginActionSuccess(userData);
         })
         .catch(err => {
