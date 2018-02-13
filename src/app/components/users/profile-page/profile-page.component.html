@@ -45,4 +45,22 @@
     </mat-card>
   </div>
 
+  <div class="users-list" style="float:right">
+    <mat-card class="container">
+      <mat-card-content>
+        <h2 class="example-h2" style="text-align: center">Users</h2>
+        <mat-tab-group class="tab-group">
+          <mat-tab label="Followers">
+            <app-user-card *ngFor="let user of getFollowers()" [user]="user"></app-user-card>
+          </mat-tab>
+          <mat-tab label="Following">
+            <div class="tab-content">
+              <app-user-card *ngFor="let user of getFollowedUsers()" [user]="user"></app-user-card>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </mat-card-content>
+    </mat-card>
+    </div>
+
 <app-user-edit #editUserModal [user]="user"></app-user-edit>

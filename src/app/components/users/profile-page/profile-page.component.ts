@@ -23,6 +23,8 @@ export class ProfilePageComponent implements OnInit {
   public posts = {};
   private userUID: string
 
+  public followers = {}
+  public following = {}
   constructor(
     private store: Store<AppState>,
     private routerSnap: ActivatedRoute,
@@ -47,20 +49,46 @@ export class ProfilePageComponent implements OnInit {
     this.firebaseDatabase.object(`/users/${id}`).valueChanges().subscribe(data => {
       this.user = data
       this.firebaseDatabase.database.ref('/posts').orderByChild('authorId').equalTo(this.userUID).on('value', sn => {
-       
         this.posts = sn.val();
+      })
+
+
+      this.firebaseDatabase.database.ref(`/users/${id}/followers`).on('value', snapshot => {
+        let followers = snapshot.val();
+        if(followers){
+          this.followers = followers
+        }
+      })
+
+      this.firebaseDatabase.database.ref(`/users/${id}/following`).on('value', snapshot => {
+        if(snapshot.val()){
+          this.following = snapshot.val()
+        }
       })
     });
 
 
   }
 
-  getPosts(){
-    if(this.posts){
-      let posts = Object.keys(this.posts).map(k => k = {id: k, ...this.posts[k]})
+  getPosts() {
+    if (this.posts) {
+      let posts = Object.keys(this.posts).map(k => k = { id: k, ...this.posts[k] })
       return posts ? posts : []
     }
   }
 
+  getFollowers() {
+    if(this.followers){
+      let followers = Object.keys(this.followers).map(k => k = {uid: k, ...this.followers[k]})
+      return followers
+    }
+  }
+
+  getFollowedUsers() {
+    if(this.following){
+      let following = Object.keys(this.following).map(k => k = {uid: k, ...this.following[k]})
+      return following
+    }
+  }
 
 }

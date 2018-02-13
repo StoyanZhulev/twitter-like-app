@@ -6,8 +6,8 @@
       <a routerLink="/users/{{user.uid}}"><h5 >{{user.firstName}} {{user.lastName}}</h5></a>
       <h6>{{user.email}}</h6>
       <div *ngIf="user.uid !== loggedInUser.uid">
-        <a *ngIf="!loggedInUser.following.hasOwnProperty(user.uid)" (click)="follow(user.uid)" routerLink="/home"><span >Follow</span></a>
-        <a *ngIf="loggedInUser.following.hasOwnProperty(user.uid)" (click)="unfollow(user.uid)" routerLink="/home"><span >Unfollow</span></a>
+        <a *ngIf="!loggedInUser.following.hasOwnProperty(user.uid)" routerLink="{{url}}" (click)="follow(user.uid)" ><span >Follow</span></a>
+        <a *ngIf="loggedInUser.following.hasOwnProperty(user.uid)"  routerLink="{{url}}" (click)="unfollow(user.uid)"><span >Unfollow</span></a>
       </div>
     </div>
   

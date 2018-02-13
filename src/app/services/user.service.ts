@@ -31,4 +31,8 @@ export class UserService {
     return Observable.fromPromise(this.firebaseDatabase.object(`/users/${this.user.uid}`).update(user))
   }
 
+  followUser(uid, user){
+    return Observable.fromPromise(this.firebaseDatabase.object(`/users/${uid}`).update(user))
+    
+  }
 }
