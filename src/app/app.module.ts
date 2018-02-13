@@ -20,8 +20,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { AuthenticationEffects } from './store/effects/auth.effects';
 import { RegisterComponent } from './components/auth/register/register.component';
 
-import { MatFormFieldModule, MatCardModule, MatCheckboxModule, MatIconModule, MatExpansionModule } from '@angular/material'
-import { MatInputModule, MatSidenavModule, MatToolbarModule, MatListModule, MatTabsModule } from '@angular/material';
+import { MatFormFieldModule,MatSelectModule, MatOptionModule, MatCardModule, MatCheckboxModule, MatIconModule, MatExpansionModule } from '@angular/material'
+import { MatInputModule,MatMenuModule, MatSidenavModule, MatToolbarModule, MatListModule, MatTabsModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { RouterModule } from "@angular/router"
@@ -68,12 +68,15 @@ import { UserService } from './services/user.service';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSelectModule,
     MatSidenavModule,
+    MatOptionModule,
     MatToolbarModule,
     MatListModule,
     MatTabsModule,
     MatCardModule,
     MatIconModule,
+    MatMenuModule,
     MatExpansionModule,
     MatCheckboxModule,
     MDBBootstrapModule.forRoot(),

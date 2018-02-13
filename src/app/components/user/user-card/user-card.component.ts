@@ -42,6 +42,7 @@ export class UserCardComponent implements OnInit {
     console.log(this.url)
     let following = this.loggedInUser.following ? this.loggedInUser.following : {}
 
+    console.log(following)
     following[uid] = {email: this.user.email, firstName: this.user.firstName, lastName: this.user.lastName, image: this.user.image};
 
     let user = {

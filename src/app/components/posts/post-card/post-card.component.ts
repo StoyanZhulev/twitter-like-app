@@ -33,7 +33,7 @@ export class PostCardComponent implements OnInit {
     if (post.usersLiked) {
       if (!post.usersLiked.hasOwnProperty(this.user.uid)) {
         post.likes = post.likes + 1;
-        post.usersLiked[this.user.uid] = true;
+        post.usersLiked[this.user.uid] = {name: this.user.firstName + ' ' + this.user.lastName};
         if(post.usersDisliked){
           if (post.usersDisliked.hasOwnProperty(this.user.uid)) {
             post.dislikes = post.dislikes - 1;
@@ -50,7 +50,7 @@ export class PostCardComponent implements OnInit {
     }else{
       post.likes = post.likes + 1;
       post.usersLiked = {}
-      post.usersLiked[this.user.uid] = true;
+      post.usersLiked[this.user.uid] = {name: this.user.firstName + ' ' + this.user.lastName};
       if(post.usersDisliked){
         if (post.usersDisliked.hasOwnProperty(this.user.uid)) {
           post.dislikes = post.dislikes - 1;
@@ -69,7 +69,7 @@ export class PostCardComponent implements OnInit {
     if(post.usersDisliked){
       if(!post.usersDisliked.hasOwnProperty(this.user.uid)){
         post.dislikes = post.dislikes + 1;
-        post.usersDisliked[this.user.uid] = true;
+        post.usersDisliked[this.user.uid] = {name: this.user.firstName + ' ' + this.user.lastName};
         if(post.usersLiked){
           if(post.usersLiked.hasOwnProperty(this.user.uid)){
             post.likes = post.likes - 1;
@@ -87,7 +87,7 @@ export class PostCardComponent implements OnInit {
     } else {
       post.dislikes = post.dislikes + 1;
       post.usersDisliked = {};
-      post.usersDisliked[this.user.uid] = true;
+      post.usersDisliked[this.user.uid] = {name: this.user.firstName + ' ' + this.user.lastName};
       if(post.usersLiked){
         if(post.usersLiked.hasOwnProperty(this.user.uid)){
           post.likes = post.likes - 1;

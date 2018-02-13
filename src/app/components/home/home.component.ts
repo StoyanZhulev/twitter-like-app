@@ -155,7 +155,7 @@ export class HomeComponent implements OnInit {
     if(this.followedUsers){
       let users = {};
       for (let u in this.followedUsers){
-        users[u] = true;
+        users[u] = {email: this.followedUsers[u].email, firstName: this.followedUsers[u].firstName, lastName: this.followedUsers[u].lastName, image: this.followedUsers[u].image};
       }
       this.store.dispatch(new UpdateFollowedUsers(users))
       let followedUsers = Object.keys(this.followedUsers).map(k => k = this.followedUsers[k]);
